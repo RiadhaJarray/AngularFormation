@@ -1,0 +1,43 @@
+<!--<div *ngFor="let item of [1, 3 , 5 , 17 , 20]">
+    <p>Number is: {{ item }}</p>
+</div>-->
+<div>
+    <app-searchproduct (searchTextChanged)="onSearchTextEntered($event)"></app-searchproduct>
+    <app-filterproduct 
+    [total]="getTotalProducts()"
+    [free]="getTotalFreeProducts()"
+    [premium]="getTotalPremiumProducts()"
+    (filterRadioButtonSelectionChanged)="onFilterRadioButtonChanged($event)"></app-filterproduct>
+</div>
+<ng-container *ngFor="let p of products; let i = index">
+    <!-- all structural directive has * before-->
+    <!-- we can not use 2 structural directive on the same html element -->
+    <!-- that's why we used ng-container to do *ngFor then inside div to use *ngIf-->
+
+
+    <!-- the next line comment is the condition to show products depending on availabel or not-->
+    <!-- productCountRadioButton === 'All' || productCountRadioButton === p.available -->
+    <div *ngIf="searchText === '' || p.name.toLowerCase().includes(searchText)" >
+        <!-- <p>{{i}}</p> -->
+        <div class="product-container" [ngStyle]="{backgroundColor: p.available === 'Available' ? '#D5f5e3' : '#fadbd8'}">
+            <div class="image-container"><img [src]="p.image" alt="" style="max-height: 50px; max-width: 50px;"></div>
+            <div>
+                <div class="name-container"><h6>{{p.name}}</h6></div>
+                <div class="detailContainer">
+                    <div class="details" [ngStyle]="{color: p.available === 'Available' ? 'Green' : 'Red'}">{{p.available}}</div>
+                    <div class="details"><b>Price:</b>{{p.price}}</div>
+                    <div class="details"><b>Color:</b>{{p.color}}</div>
+                </div>
+            </div>
+            <div class="options">
+                <button class="btn btn-success">Show Details</button>
+                <!--to use else option on ngIf directive we must create ng-template with appropriate html content then call it on else option with it's #name -->
+                <button class="btn btn-warning" *ngIf="p.available === 'Available' ; else notifyme">Buy Now</button>
+                <ng-template #notifyme>
+                    <button class="btn btn-danger">Notify me</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</ng-container>
+

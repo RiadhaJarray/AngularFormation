@@ -1,0 +1,7 @@
+"encapsulation is hidding data and behaviour from outside."
+
+"by defuelt Angular gives a unique attribute to every component,because of the encapsulation property witch is by defauth 
+encapsulation: ViewEncapsulation.Emulated ===> this means that every component has it's css and specification and encapsulation is rspected
+encapsulation: ViewEncapsulation.None ===> with None property there no encapsulation and what css you apply to parent compoanet it is applied to all his child
+there is also ..  encapsulation: ViewEncapsulation.ShadowDom ===> witch means that the component with this property will not be affected with a global css property or 
+an ViewEncapsulation.None from other parent component (so here encapsulation is respected again in this component) so it creates it's specific dom that is seperated from main dom."
